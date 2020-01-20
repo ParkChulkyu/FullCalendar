@@ -10,6 +10,7 @@
 <script src='fullcalendar/daygrid/main.js'></script>
 <script src="fullcalendar/interaction/main.min.js"></script>
 <script src="fullcalendar/timegrid/main.min.js"></script>
+<script src="fullcalendar/moment/main.min.js"></script>
 
 <script type="text/javascript">
 	document.addEventListener('DOMContentLoaded', function() {
