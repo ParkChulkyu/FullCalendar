@@ -15,14 +15,13 @@ public class CalendarDto {
 	private String enddate;
 	
 	// 해당 일정에 대한 색
-	private String color;
+	private String allday;
 
-	public String getColor() {
-		return color;
+	public CalendarDto() {
+		super();
 	}
-
-	public void setColor(String color) {
-		this.color = color;
+	public CalendarDto(String startdate) {
+		this.startdate = startdate;
 	}
 
 	public String getId() {
@@ -56,5 +55,24 @@ public class CalendarDto {
 	public void setEnddate(String enddate) {
 		this.enddate = enddate;
 	}
+
+	public String getAllday() {
+		return allday;
+	}
+
+	public void setAllday(String allday) {
+		this.allday = allday;
+	}
+
+	public CalendarDto(String id, String title, String startdate, String enddate, String allday) {
+		super();
+		this.id = id;
+		this.title = title;
+		this.startdate = startdate;
+		this.enddate = enddate;
+		this.allday = allday;
+	}
+
+	
 
 }

@@ -6,6 +6,7 @@
 <link href='fullcalendar/core/main.css' rel='stylesheet' />
 <link href='fullcalendar/daygrid/main.css' rel='stylesheet' />
 <link href='fullcalendar/timegrid/main.min.css' rel='stylesheet' />
+
 <script src='fullcalendar/core/main.js'></script>
 <script src='fullcalendar/daygrid/main.js'></script>
 <script src="fullcalendar/interaction/main.min.js"></script>
@@ -57,17 +58,7 @@
     calendar.render();
   });
 </script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-      var calendarEl = document.getElementById('calendar');
-    
-      var calendar = new FullCalendar.Calendar(calendarEl, {
-        plugins: [ 'dayGrid' ]
-      });
-    
-      calendar.render();
-    });
-</script>
+
 <style>
 html, body {
   margin: 0;
