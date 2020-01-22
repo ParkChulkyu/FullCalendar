@@ -20,6 +20,8 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
 
 <script>
+
+
 document.addEventListener('DOMContentLoaded', function() {
 	var Calendar = FullCalendar.Calendar;
 	var Draggable = FullCalendarInteraction.Draggable;
@@ -36,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			};
 		}
 	});
-	
+	var dateArray = new Array();
 	var calendar = new FullCalendar.Calendar(calendarEl, {
 		// plugins: 모듈 js파일들을 사용한다.
 		plugins : [ 'dayGrid', 'interaction', 'timeGrid', 'moment' ],
@@ -54,10 +56,8 @@ document.addEventListener('DOMContentLoaded', function() {
 				text : '일정등록',
 				click : function(info) {
 					var dateStr = prompt('일정을 YYYY-MM-DD 형식으로 추가해라');
-					// var dateStr2 = prompt('일정을 YYYY-MM-DD 형식으로 추가해라');
 					var date = new Date(dateStr + 'T00:00:00'); // will be in local time
-					// var date2 = new Date(dateStr2 + 'T00:00:00');
-
+	
 					if (!isNaN(date.valueOf())) { // valid?
 						calendar.addEvent({
 							/*
@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		selectable : true,
 
 		// 시간대를 설정가능 (GMT: 한국, UTC: 협정 세계시)
-		timeZone : 'GMT',
+		timeZone : 'UTF',
 
 		// 일정들을 수정(길이가 길어질수도있고 다음달로 이월가능하다.)할수있다.
 		editable : true,
@@ -121,8 +121,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			start : '2020-01-01', // a property!
 			end : '2020-01-01', // a property! ** see important note below about 'end' **
 			textColor : 'red'
-		} ],
-
+		}]/*,	
 		// 날짜를 클릭했을 때, 어느 날짜인지 알려주는 함수
 		dateClick : function(info) {
 			//alert('Clicked on: ' + info.dateStr);
@@ -132,67 +131,48 @@ document.addEventListener('DOMContentLoaded', function() {
 			// change the day's background color just for fun
 			info.dayEl.style.backgroundColor = 'blue';
 			console.log(info.dateStr);
+			dateArray.push(info.dateStr);
+			console.log(dateArray);
+			//var dateArr = new Array();
+			//$("input[name = dateStr]").val(info.dateStr).each(function (i) {
+			//	dateArr.push($(this).val());
+			//});
+			//alert($("input[name=dateStr]").val());
+			
 			
 			$("input[name = dateStr]").val(info.dateStr);
 			alert($("input[name=dateStr]").val());
-			
-			/*$.ajax({
-		        //contentType:'application/json',
-		        //dataType:'json',
-		        url:'cal.do?command=test',
-		        type:'post',
-		        //async: false,
-		        data:{info:info.dateStr},
-		        success:function(info){
-		            //alert(resp.f.id + ' ggg');     
-		           /* $.each(info, function(index, item){
-		                console.log(index + ' : ' + item);
-		                $.each(item, function(iii, ttt){
-		                    //console.log('inner loop => ' + iii + ' : ' + ttt);
-		                });
-		            });*/
-		            //arr = info;
-		          /*  alert("성공");
-
-		        }, error : function () {
-					alert('error');
-				}
-			})*/
-		}
+		}*/,
+	    select: function(info) {
+	        alert('selected ' + info.startStr + ' to ' + info.endStr);
+	    }
 	});
 
 	// 달력화면을 표시한다.
 	calendar.render();
 	
 	var arrTest = getCalendarDataInDB();
-	$.each(arrTest, function(index, item){
-		//console.log('outer loop_in_cal' + index + ' : ' + item);
-			$.each(item, function(iii, ttt){
-				//console.log('inner loop_in_cal => ' + iii + ' : ' + ttt);
-			});
+	  $.each(arrTest, function(index, item){
+	        console.log('outer loop_in_cal' + index + ' : ' + item);
+	        $.each(item, function(iii, ttt){
+	            console.log('inner loop_in_cal => ' + iii + ' : ' + ttt);
+	 	    });
 	});
 	
 	// 내 일정 저장을 눌르면
-	$("#btnAddTest").click(function(info){
-		//var arr = getCalendarEvent();
-		var arr = getCalendarDataInDB();
-		console.log('arr[0].size : ' +  Object.keys( arr[0] ).length );
-		$.each(arr, function(index, item){
-			calendar.addEvent( item );
-			//console.log('click evt loop_in_cal' + index + ' : ' + item);
-			$.each(item, function(iii, ttt){
-				//console.log('click evt inner loop_in_cal => ' + iii + ' : ' + ttt);
-			});
-		});
-	
-	//calendar.addEvent( {'title':'evt4', 'start':'2020-01-20', 'end':'2020-01-21'});
-	calendar.render();
-	}); 
+	  $("#btnAddTest").click(function(){
+		  var arr = getCalendarDataInDB();
+		  $.each(arr, function(index, item){
+		   calendar.addEvent( item );
+		  });
+		  calendar.render();
+		 });
+
 });
 
 function getCalendarEvent(){
     //var arr = [ {'title':'evt4', 'start':'2019-09-04', 'end':'2019-09-06'} ];
-    var arr = { 'title':'evt4', 'start':'2019-09-04', 'end':'2019-09-06' };
+    var arr = { 'title':'evt4', 'start':'2020-01-20', 'end':'2020-01-22' };
     return arr;
 }
 
@@ -207,29 +187,27 @@ function getCalendarDataInDB(){
     viewData["title"] = $("#title").val();
     viewData["content"] = $("#content").val();
     
-   /* $.ajax({
-        //contentType:'application/json',
-        //dataType:'json',
+    $.ajax({
+        contentType:'application/json',
+        dataType:'json',
         url:'cal.do?command=test',
         type:'post',
-        //async: false,
-        //data:JSON.stringify(viewData),
+        async: false,
+        data:JSON.stringify(viewData),
         success:function(resp){
             //alert(resp.f.id + ' ggg');     
-          /*  $.each(resp, function(index, item){
+            $.each(resp, function(index, item){
                 console.log(index + ' : ' + item);
                 $.each(item, function(iii, ttt){
                     console.log('inner loop => ' + iii + ' : ' + ttt);
                 });
             });
-            arr = resp;*/
-      /*      alert("gg");
-
+            arr = resp;
         },
         error:function(){
             alert('저장 중 에러가 발생했습니다. 다시 시도해 주세요.');
         }
-    });*/
+    });
     
     return arr;
 }
@@ -312,6 +290,7 @@ body {
 
 <input type="hidden" name="dateStr" value="${info.dateStr}">
 
+<input type="button" id="btnAddTest" value="추가">
 <input type="submit" value="디비에 저장"> 
 
 </form>
