@@ -1,43 +1,45 @@
 package fullCal_dto;
 
+import java.util.Date;
+
 public class CalendarDto {
 
 	// 유저 아이디
-	private String id;
+	private String t_id;
 	
 	// 일정 이름
-	private String title;
+	private String u_id;
 	
 	// 일정 시작 날짜
 	private String startdate;
 	
 	// 일정 끝나는 날짜
 	private String enddate;
-	
-	// 해당 일정에 대한 색
-	private String allday;
 
-	public CalendarDto() {
+	public CalendarDto() {}
+
+	public CalendarDto(String t_id, String u_id, String startdate, String enddate) {
 		super();
-	}
-	public CalendarDto(String startdate) {
+		this.t_id = t_id;
+		this.u_id = u_id;
 		this.startdate = startdate;
+		this.enddate = enddate;
 	}
 
-	public String getId() {
-		return id;
+	public String getT_id() {
+		return t_id;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setT_id(String t_id) {
+		this.t_id = t_id;
 	}
 
-	public String getTitle() {
-		return title;
+	public String getU_id() {
+		return u_id;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setU_id(String u_id) {
+		this.u_id = u_id;
 	}
 
 	public String getStartdate() {
@@ -56,23 +58,6 @@ public class CalendarDto {
 		this.enddate = enddate;
 	}
 
-	public String getAllday() {
-		return allday;
-	}
-
-	public void setAllday(String allday) {
-		this.allday = allday;
-	}
-
-	public CalendarDto(String id, String title, String startdate, String enddate, String allday) {
-		super();
-		this.id = id;
-		this.title = title;
-		this.startdate = startdate;
-		this.enddate = enddate;
-		this.allday = allday;
-	}
 
 	
-
 }

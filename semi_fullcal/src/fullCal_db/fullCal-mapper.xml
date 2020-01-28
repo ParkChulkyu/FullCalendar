@@ -5,6 +5,10 @@
 <mapper namespace="fullCalMapper">
 
 	<insert id="insert" parameterType="calDto">
-		INSERT INTO CREATECAL (ID, TITLE, STARTDATE, ENDDATE, ALLDAY) VALUES (#{id}, #{title}, #{startdate}, #{enddate}, #{allday})
+		INSERT INTO CREATEDATE (T_ID, U_ID, STARTDATE, ENDDATE) VALUES (#{t_id}, #{u_id}, #{startdate}, #{enddate})
 	</insert>
+	<select id="select" resultType="calDto">
+		SELECT T_ID,U_ID,STARTDATE,ENDDATE
+		FROM CREATEDATE
+	</select>
 </mapper>
